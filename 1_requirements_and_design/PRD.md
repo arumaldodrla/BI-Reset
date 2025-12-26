@@ -6,11 +6,11 @@
 
 ## 1. Introduction
 
-This document outlines the product requirements for BI Reset, an AI-first, multi-source business intelligence platform. The target audience for this document includes project managers, designers, developers (including AI agents), and QA teams.
+This Product Requirements Document (PRD) defines the vision, features, and scope for BI Reset. It serves as the guiding document for the project team—including project managers, designers, AI development agents, and quality assurance—to ensure alignment on what is being built and for whom.
 
 ## 2. Product Vision & Strategy
 
-BI Reset aims to democratize data analytics for small to medium-sized enterprises (SMEs) by providing a powerful, intuitive, and affordable BI solution. Our strategy is to differentiate through:
+BI Reset will democratize data analytics for small and medium-sized enterprises (SMEs) by delivering a powerful, intuitive, and affordable BI solution. The product strategy is centered on three key differentiators:
 
 - **AI-First Experience**: Making natural language the primary means of data interaction.
 - **Seamless Multi-Source Integration**: Eliminating data silos by enabling easy connection to and analysis of data from disparate systems.
@@ -18,15 +18,18 @@ BI Reset aims to democratize data analytics for small to medium-sized enterprise
 
 ## 3. Target Audience & User Personas
 
-- **Primary Persona: The Business Decision-Maker (e.g., CEO, Head of Sales, Operations Manager)**
+- **Primary Persona: The Business Decision-Maker (e.g., CEO, Head of Sales, Operations Manager)
+  - **Summary**: A non-technical leader who needs high-level, accurate data to make strategic decisions.**
   - **Needs**: High-level dashboards, KPI tracking, ability to ask strategic questions of the data.
   - **Pain Points**: Lack of a unified view of the business, dependence on technical teams for reports, slow access to data.
 
-- **Secondary Persona: The Data-Savvy Business User (e.g., Business Analyst, Marketing Analyst)**
+- **Secondary Persona: The Data-Savvy Business User (e.g., Business Analyst, Marketing Analyst)
+  - **Summary**: A hands-on user who is comfortable with data and needs to perform ad-hoc analysis and create custom reports.**
   - **Needs**: Ability to create custom reports, perform ad-hoc analysis, and blend data from different sources.
   - **Pain Points**: Existing tools are too complex, data is not easily accessible, manual data blending in spreadsheets is error-prone.
 
-- **Tertiary Persona: The Administrator (e.g., IT Manager, System Admin)**
+- **Tertiary Persona: The Administrator (e.g., IT Manager, System Admin)
+  - **Summary**: Responsible for the technical management of the platform, including user access, data security, and system integrations.**
   - **Needs**: Easy user management, data source configuration, security and access control.
   - **Pain Points**: Managing multiple BI tools, ensuring data security and compliance, high licensing costs.
 

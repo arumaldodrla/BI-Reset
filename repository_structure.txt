@@ -1,0 +1,34 @@
+.
+├── 0_initiation_and_commercial
+│   └── Business_Case_and_Feasibility_Summary.md
+├── 1_requirements_and_design
+│   ├── Architecture_Overview.md
+│   ├── PRD.md
+│   ├── SRS.md
+│   └── UX_Guidelines_and_Key_Screens.md
+├── 2_project_and_change_management
+│   ├── Project_Charter.md
+│   └── Project_Plan_and_Schedule.md
+├── 3_build_and_qa
+│   └── Test_Strategy_and_Test_Plan.md
+├── 4_deployment_and_ops
+│   ├── Deployment_Plan_and_Go_Live_Criteria.md
+│   └── Support_and_SLA.md
+├── 5_training_and_docs
+│   ├── Admin_Guide.md
+│   ├── Documentation_Plan.md
+│   └── User_Guide.md
+├── 6_ai_agent_development
+│   ├── 01_Backend_Setup.md
+│   ├── 02_Frontend_Setup.md
+│   ├── 03_Data_Integration_Pipeline.md
+│   ├── 04_LLM_Orchestration_Layer.md
+│   ├── 05_Metabase_Integration.md
+│   └── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── PROJECT_SUMMARY.md
+├── README.md
+└── repository_structure.txt
+
+7 directories, 24 files

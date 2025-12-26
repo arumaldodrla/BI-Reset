@@ -6,9 +6,9 @@
 
 ## 1. Introduction
 
-This document provides a high-level overview of the system architecture for the BI Reset platform. It is designed to guide both human stakeholders and AI development agents in understanding the system's structure, components, and data flows.
+This document provides a comprehensive overview of the system architecture for the BI Reset platform. It is designed to serve as a technical blueprint for AI development agents and a clear reference for human stakeholders to understand the system's structure, components, and data flows.
 
-BI Reset employs a **hybrid, multi-layered architecture** that combines custom-built components with best-in-class open-source and managed services. This approach is designed to accelerate development by leveraging mature tools for commodity features (like visualization) while allowing for deep customization of the platform's core value proposition (AI-powered, multi-source analytics).
+BI Reset employs a **hybrid, multi-layered architecture** that strategically combines custom-built components with best-in-class open-source and managed services. This approach accelerates development by leveraging mature, proven tools for commodity features (such as visualization) while focusing custom development efforts on the platform's unique value proposition: AI-powered, multi-source analytics.
 
 ## 2. Architectural Principles
 
@@ -93,7 +93,129 @@ The system is divided into three primary layers:
     -   Metabase generates and executes a SQL query against Snowflake.
     -   The results are rendered as a visualization within the embedded Metabase UI.
 
-## 6. Multi-Tenancy & Security
+## 6. Supabase Database Schema
+
+This section details the primary tables managed in the Supabase PostgreSQL database. This schema is designed for multi-tenancy, with all core tables linked to a `tenant_id`.
+
+### Entity-Relationship Diagram (ERD)
+
+```mermaid
+erDiagram
+    tenants {
+        uuid id PK
+        text name
+    }
+
+    users {
+        uuid id PK
+        uuid tenant_id FK
+    }
+
+    workspaces {
+        uuid id PK
+        uuid tenant_id FK
+        text name
+    }
+
+    workspace_members {
+        uuid workspace_id FK
+        uuid user_id FK
+        text role
+    }
+
+    data_sources {
+        uuid id PK
+        uuid workspace_id FK
+        text name
+        text type
+        text credentials
+        text status
+        timestamp last_synced_at
+    }
+
+    semantic_layer_columns {
+        uuid id PK
+        uuid data_source_id FK
+        text table_name
+        text column_name
+        text description
+        bool is_dimension
+        bool is_measure
+    }
+
+    tenants ||--o{ users : has
+    tenants ||--o{ workspaces : has
+    workspaces ||--o{ workspace_members : has
+    users ||--o{ workspace_members : has
+    workspaces ||--o{ data_sources : has
+    data_sources ||--o{ semantic_layer_columns : has
+```
+
+### Table Definitions
+
+#### `tenants`
+Stores information about each customer tenant.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | **Primary Key.** Unique identifier for the tenant. |
+| `name` | `text` | The display name of the tenant organization. |
+| `created_at` | `timestamp` | Timestamp of when the tenant was created. |
+
+#### `users`
+This table is an extension of `auth.users` from Supabase Auth, linking users to a tenant.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | **Primary Key.** Foreign key to `auth.users.id`. |
+| `tenant_id` | `uuid` | **Foreign Key** to `tenants.id`. Associates the user with a tenant. |
+
+#### `workspaces`
+A tenant can have multiple workspaces to isolate projects or departments.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | **Primary Key.** |
+| `tenant_id` | `uuid` | **Foreign Key** to `tenants.id`. |
+| `name` | `text` | The name of the workspace (e.g., "Marketing Analytics"). |
+
+#### `workspace_members`
+A join table to manage user roles within workspaces.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `workspace_id` | `uuid` | **Composite Primary Key & Foreign Key** to `workspaces.id`. |
+| `user_id` | `uuid` | **Composite Primary Key & Foreign Key** to `users.id`. |
+| `role` | `text` | The user's role in the workspace (`admin`, `editor`, `viewer`). |
+
+#### `data_sources`
+Stores connection information for each data source configured in a workspace.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | **Primary Key.** |
+| `workspace_id` | `uuid` | **Foreign Key** to `workspaces.id`. |
+| `name` | `text` | User-defined name for the data source. |
+| `type` | `text` | The type of the data source (e.g., `zoho_crm`, `sap_b1`). |
+| `credentials` | `text` | **Encrypted** connection credentials. |
+| `status` | `text` | The current status of the data source (`pending`, `connected`, `error`). |
+| `last_synced_at` | `timestamp` | Timestamp of the last successful data sync. |
+
+#### `semantic_layer_columns`
+Stores the business-friendly metadata for columns that the LLM will use to generate queries.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | **Primary Key.** |
+| `data_source_id` | `uuid` | **Foreign Key** to `data_sources.id`. |
+| `table_name` | `text` | The name of the table in the data warehouse. |
+| `column_name` | `text` | The name of the column in the data warehouse. |
+| `description` | `text` | A human-readable description of the column's business meaning. |
+| `is_dimension` | `bool` | True if the column can be used for grouping. |
+| `is_measure` | `bool` | True if the column can be used for aggregation. |
+
+
+## 7. Multi-Tenancy & Security
 
 -   **Tenant Isolation**: Each customer is a "tenant." All data in the Supabase PostgreSQL database is associated with a `tenant_id`.
 -   **Row-Level Security (RLS)**: Supabase RLS policies are applied to every query to ensure that users can only access data belonging to their own tenant.
