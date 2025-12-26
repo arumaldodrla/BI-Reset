@@ -215,7 +215,30 @@ Stores the business-friendly metadata for columns that the LLM will use to gener
 | `is_measure` | `bool` | True if the column can be used for aggregation. |
 
 
-## 7. Multi-Tenancy & Security
+## 7. Internationalization (i18n) Framework
+
+The frontend will be built with internationalization from the ground up using the `i18next` framework. This architecture ensures that adding new languages is a streamlined, low-effort process.
+
+- **Locale Files**: All user-facing strings will be externalized into JSON files located in `public/locales/{language_code}/common.json`. For example, `en/common.json` for English and `es/common.json` for Spanish.
+- **i18next Integration**: The Refine application will be configured with `i18next` and `react-i18next` to detect the user's language and load the appropriate translation file.
+- **AI-Assisted Translation Workflow**: A future enhancement will include a CI/CD pipeline job that automatically detects new, untranslated strings in the `en/common.json` file, sends them to an AI translation service (like Google Translate or DeepL), and creates a pull request with the newly translated JSON files for other languages. This reduces the manual effort of translation to a simple review and approval step.
+
+## 8. Automated Maintenance & Self-Revision System
+
+To ensure the long-term health and stability of the platform, an automated self-maintenance system will be implemented using GitHub Actions and a dedicated AI agent.
+
+- **Weekly Trigger**: A cron-scheduled GitHub Actions workflow will run every Sunday at 00:00 UTC.
+- **Maintenance Agent**: The workflow will invoke a specialized AI agent with the following tasks:
+  1. **Dependency Scan**: The agent will use a tool like `npm outdated` to check for outdated dependencies in the frontend application.
+  2. **Vulnerability Audit**: The agent will run `npm audit` to check for known security vulnerabilities.
+  3. **Code Quality Analysis**: The agent will perform static analysis using tools like ESLint and SonarCloud to identify code smells, potential bugs, and areas for refactoring.
+- **Automated PRs**: Based on the analysis, the agent will take one of two actions:
+  - **Minor Fixes**: For low-risk changes like updating a non-breaking patch version of a dependency, the agent will automatically generate a pull request with the fix, run all tests, and, if they pass, merge it into the `develop` branch.
+  - **Major Issues**: For major version updates, security vulnerabilities, or complex refactoring suggestions, the agent will create a detailed GitHub Issue and a draft pull request, then assign it to a human supervisor for manual review and approval.
+
+This system ensures that the platform remains secure, up-to-date, and maintainable with minimal human intervention.
+
+## 9. Multi-Tenancy & Security
 
 -   **Tenant Isolation**: Each customer is a "tenant." All data in the Supabase PostgreSQL database is associated with a `tenant_id`.
 -   **Row-Level Security (RLS)**: Supabase RLS policies are applied to every query to ensure that users can only access data belonging to their own tenant.

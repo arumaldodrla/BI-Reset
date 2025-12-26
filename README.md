@@ -138,6 +138,8 @@ These are the detailed technical specifications for AI development agents.
 | [03: Data Integration Pipeline](./6_ai_agent_development/03_Data_Integration_Pipeline.md) | Airbyte and dbt configuration. |
 | [04: LLM Orchestration Layer](./6_ai_agent_development/04_LLM_Orchestration_Layer.md) | Design for the AI-powered query engine. |
 | [05: Metabase Integration](./6_ai_agent_development/05_Metabase_Integration.md) | Secure embedding and multi-tenancy in Metabase. |
+| [06: Internationalization](./6_ai_agent_development/06_Internationalization.md) | i18n framework with i18next for multi-language support. |
+| [07: Automated Maintenance](./6_ai_agent_development/07_Automated_Maintenance.md) | Weekly self-revision and auto-update system. |
 
 ---
 

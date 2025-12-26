@@ -15,6 +15,7 @@ BI Reset will democratize data analytics for small and medium-sized enterprises 
 - **AI-First Experience**: Making natural language the primary means of data interaction.
 - **Seamless Multi-Source Integration**: Eliminating data silos by enabling easy connection to and analysis of data from disparate systems.
 - **Self-Service Analytics**: Empowering non-technical users to answer their own data questions without relying on data analysts.
+- **Simple UX, Powerful Engine**: Delivering a user experience that is clean, intuitive, and requires minimal training, while the underlying platform provides complex, powerful, and feature-rich analytics capabilities.
 
 ## 3. Target Audience & User Personas
 
@@ -54,6 +55,9 @@ BI Reset will democratize data analytics for small and medium-sized enterprises 
 | F08 | **Data Export** | Users can export reports and dashboards to common formats, including CSV, XLSX, and PDF. | As a Business Analyst, I want to export a report to Excel so I can perform further analysis or share it with stakeholders. |
 | F09 | **Dashboard Embedding** | Dashboards can be securely embedded in other applications using iframes or a JavaScript SDK. | As a Product Manager, I want to embed a customer usage dashboard directly into our internal admin panel. |
 | F10 | **API Access** | A RESTful API for programmatic interaction with the platform (e.g., managing users, triggering data syncs, querying reports). | As a Developer, I want to use an API to automatically create new user accounts when they sign up for our main application. |
+| F11 | **Internationalization (i18n)** | The user interface must support multiple languages. The initial launch will include English (default) and Spanish. The architecture must support adding new languages easily with AI-assisted translation. | As a user in Mexico, I want to use the platform in Spanish so I can understand all the features and options. |
+
+| F12 | **Automated Self-Maintenance** | The platform will include a weekly process to self-review its codebase, identify potential bugs or areas for minor improvement, and automatically apply patches. Major updates will be flagged for human review. | As an Administrator, I want the system to handle routine maintenance automatically so I can focus on strategic tasks. |
 
 ### 4.3. P2 - Could-Have Features (Future Scope)
 
@@ -73,7 +77,7 @@ BI Reset will democratize data analytics for small and medium-sized enterprises 
 
 ## 6. Assumptions & Dependencies
 
-- **Assumption**: The project will be developed entirely by AI agents, supervised by a human project manager.
+- **Core Principle**: The project will be developed **100% by AI agents** using frameworks like Google Antigravity, with supervision from a non-technical human team. All documentation and specifications are written to support this model.
 - **Assumption**: The hybrid architecture (Metabase + data warehouse) is the chosen path.
 - **Dependency**: Access to a cloud data warehouse (e.g., Snowflake) is required for the multi-source join functionality.
 - **Dependency**: Access to OpenAI (or a similar LLM) API is required for the AI-powered query feature.

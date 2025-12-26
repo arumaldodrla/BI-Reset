@@ -53,6 +53,25 @@ BI Reset is a web-based, multi-tenant, AI-powered business intelligence platform
 - **SYS-019**: Users shall be able to export reports to CSV, XLSX, and JSON formats.
 - **SYS-020**: Users shall be able to download entire dashboards as PDFs.
 
+### 3.5. Internationalization (i18n)
+
+- **SYS-021**: The frontend application must be internationalized. All user-facing strings must be stored in locale-specific JSON files.
+- **SYS-022**: The system shall use a library like `i18next` to manage translations.
+- **SYS-023**: The default language shall be English (`en`).
+- **SYS-024**: The system must provide a Spanish (`es`) translation for the initial launch.
+- **SYS-025**: The user's preferred language shall be detected from their browser settings on first visit and be manually selectable from a dropdown menu in the UI.
+- **SYS-026**: The architecture must support an AI-assisted translation workflow, where new strings are automatically sent to a translation service and the results are stored for human review.
+
+### 3.6. Automated Maintenance & Self-Revision
+
+- **SYS-027**: The system shall include a scheduled weekly job (e.g., a GitHub Action) that performs a self-revision of the codebase.
+- **SYS-028**: The self-revision process will involve an AI agent that:
+  - Scans for outdated dependencies and creates a pull request to update them.
+  - Performs static code analysis to identify potential bugs, security vulnerabilities, or areas for refactoring.
+  - For minor, low-risk issues (e.g., updating a non-breaking dependency), the AI agent can automatically generate and merge a fix.
+- **SYS-029**: For major updates or complex issues, the AI agent shall create a detailed GitHub Issue and a draft pull request, then assign it to a human supervisor for review and approval.
+- **SYS-030**: The results of the weekly self-revision shall be logged, and a summary report shall be sent to the administrative team.
+
 ## 4. Non-Functional Requirements
 
 - **PERF-001**: Median API response time for backend operations shall be under 200ms.

@@ -26,3 +26,5 @@ This directory contains detailed technical specifications and guides for AI deve
 -   [**03_Data_Integration_Pipeline.md**](./03_Data_Integration_Pipeline.md): Specifications for building the ELT pipeline with Airbyte and dbt.
 -   [**04_LLM_Orchestration_Layer.md**](./04_LLM_Orchestration_Layer.md): Detailed design for the AI-powered query engine.
 -   [**05_Metabase_Integration.md**](./05_Metabase_Integration.md): Instructions for embedding and securing the Metabase frontend.
+-   [**06_Internationalization.md**](./06_Internationalization.md): Guide for implementing the i18n framework with i18next.
+-   [**07_Automated_Maintenance.md**](./07_Automated_Maintenance.md): Specifications for the weekly self-revision and auto-update system.
